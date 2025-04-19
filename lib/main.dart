@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:get/get.dart';
+import 'package:readio/features/Splash/presentaion/views/splash_view.dart';
 
 void main() {
   runApp(const Readio());
@@ -8,9 +9,11 @@ void main() {
 class Readio extends StatelessWidget {
   const Readio({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp();
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SplashView(),
+    );
   }
 }
