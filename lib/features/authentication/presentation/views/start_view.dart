@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:readio/core/utils/constants.dart';
 import 'package:readio/features/authentication/presentation/views/login_view.dart';
+
 class StartView extends StatefulWidget {
   const StartView({super.key});
 
@@ -22,7 +23,7 @@ class _StartViewState extends State<StartView> {
               Align(
                 alignment: Alignment.topCenter,
                 child: Image.asset(
-                  "assets/images/logo.jpg",
+                  AssetsData.logo2,
                   width: 320,
                   height: 220,
                   fit: BoxFit.contain,
@@ -66,7 +67,10 @@ class _StartViewState extends State<StartView> {
                 style: ElevatedButton.styleFrom(
                   elevation: 20,
                   backgroundColor: const Color(0xFF392626),
-                  padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 100,
+                    vertical: 15,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
