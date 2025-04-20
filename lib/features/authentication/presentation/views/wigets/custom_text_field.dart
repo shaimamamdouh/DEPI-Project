@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CustumTextField extends StatelessWidget {
-  const CustumTextField({super.key, required this.labelText, required this.icon});
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({
+    super.key,
+    required this.labelText,
+    required this.icon,
+  });
   final String labelText;
   final Widget icon;
 
@@ -11,7 +15,7 @@ class CustumTextField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(40)),
+          borderRadius: BorderRadius.all(Radius.circular(25)),
           borderSide: BorderSide(color: Color(0xFF392626), width: 2),
         ),
         prefixIcon: icon,

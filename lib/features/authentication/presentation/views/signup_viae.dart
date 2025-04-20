@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:readio/features/authentication/presentation/views/wigets/cusrum_text_field.dart';
+import 'package:readio/features/authentication/presentation/views/wigets/custom_text_field.dart';
 
 class SignupView extends StatelessWidget {
   const SignupView({super.key});
@@ -28,12 +28,12 @@ class SignupView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 75),
-                CustumTextField(labelText: 'Email', icon: Icon(Icons.email)),
+                CustomTextField(labelText: 'Email', icon: Icon(Icons.email)),
 
                 const SizedBox(height: 25),
-                CustumTextField(labelText: 'Password', icon: Icon(Icons.email)),
+                CustomTextField(labelText: 'Password', icon: Icon(Icons.email)),
                 SizedBox(height: 25),
-                CustumTextField(labelText: 'Phone', icon: Icon(Icons.email)),
+                CustomTextField(labelText: 'Phone', icon: Icon(Icons.email)),
                 SizedBox(height: 100),
                 ElevatedButton(
                   onPressed: () {},

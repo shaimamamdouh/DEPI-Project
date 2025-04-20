@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:readio/features/authentication/presentation/views/signup_viae.dart';
-import 'package:readio/features/authentication/presentation/views/wigets/cusrum_text_field.dart';
+import 'package:readio/features/authentication/presentation/views/wigets/custom_text_field.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -32,16 +32,10 @@ class LoginView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 100),
-               CustumTextField(
-                labelText: 'Email',
-                icon: Icon(Icons.email),
-               ),
+                CustomTextField(labelText: 'Email', icon: Icon(Icons.email)),
                 const SizedBox(height: 20),
-               CustumTextField(
-                labelText: 'Password',
-                icon: Icon(Icons.lock),
-               ),
-                
+                CustomTextField(labelText: 'Password', icon: Icon(Icons.lock)),
+
                 const SizedBox(height: 10),
                 Align(
                   alignment: Alignment.centerLeft,
