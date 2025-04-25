@@ -13,23 +13,28 @@ class SplashViewBody extends StatefulWidget {
 class _SplashViewBodyState extends State<SplashViewBody>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
-  late Animation<Offset> animation;
+  late Animation<double> fadeAnimation;
+  late Animation<double> scaleAnimation;
 
   @override
   void initState() {
     super.initState();
+
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 1200),
     );
-    animation = Tween<Offset>(
-      begin: Offset(0, 5),
-      end: Offset.zero,
-    ).animate(animationController);
+
+    fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: animationController, curve: Curves.easeIn),
+    );
+
+    scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(parent: animationController, curve: Curves.easeOutBack),
+    );
+
     animationController.forward();
-    animation.addListener(() {
-      setState(() {});
-    });
+
     Future.delayed(const Duration(seconds: 3), () {
       Get.to(
         () => const StartView(),
@@ -40,27 +45,25 @@ class _SplashViewBodyState extends State<SplashViewBody>
   }
 
   @override
-  dispose() {
+  void dispose() {
     animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        SizedBox(height: 150, width: 250, child: Image.asset(AssetsData.logo)),
-        SlideTransition(
-          position: animation,
-          child: Text(
-            'Read. Listen. Discuss.',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 18, color: Color(0xffFEF5E4)),
+    return Center(
+      child: FadeTransition(
+        opacity: fadeAnimation,
+        child: ScaleTransition(
+          scale: scaleAnimation,
+          child: SizedBox(
+            width: 250,
+            height: 250,
+            child: Image.asset(AssetsData.logoLight),
           ),
         ),
-      ],
+      ),
     );
   }
 }

@@ -23,7 +23,7 @@ class _StartViewState extends State<StartView> {
               Align(
                 alignment: Alignment.topCenter,
                 child: Image.asset(
-                  AssetsData.logo2,
+                  AssetsData.logoLight,
                   width: 320,
                   height: 220,
                   fit: BoxFit.contain,

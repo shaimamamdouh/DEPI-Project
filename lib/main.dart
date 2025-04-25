@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:readio/config/cache/cache_helper.dart';
@@ -30,7 +32,7 @@ class Readio extends StatelessWidget {
         Locale('en'), // English
         Locale('ar'), // Arabic
       ],
-      locale: Locale('en'), 
+      locale: Locale('en'), // Default locale
 
       debugShowCheckedModeBanner: false,
       home: SplashView(),
