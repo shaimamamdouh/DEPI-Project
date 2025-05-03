@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:readio/core/utils/constants.dart';
-import 'package:readio/features/authentication/presentation/views/start_view.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -34,13 +33,8 @@ class _SplashViewBodyState extends State<SplashViewBody>
     );
 
     animationController.forward();
-
     Future.delayed(const Duration(seconds: 3), () {
-      Get.to(
-        () => const StartView(),
-        transition: Transition.fade,
-        duration: const Duration(milliseconds: 800),
-      );
+      context.go('/StartView');
     });
   }
 

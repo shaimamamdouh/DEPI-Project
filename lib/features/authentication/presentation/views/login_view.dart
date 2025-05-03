@@ -1,106 +1,156 @@
 import 'package:flutter/material.dart';
-import 'package:readio/features/authentication/presentation/views/signup_viae.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:readio/core/utils/constants.dart';
 import 'package:readio/features/authentication/presentation/views/wigets/custom_text_field.dart';
+import 'package:readio/features/authentication/presentation/views/wigets/custum_elevated_bottom.dart';
 
-
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
   @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  final _keyForm = GlobalKey<FormState>();
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  String? userEmail, password;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFEF6E3),
-      appBar: AppBar(
-        title: const Text(""),
-        backgroundColor: const Color(0xFFFEF6E3),
-      ),
-      body: Center(
+      backgroundColor: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 20),
-                const Text(
-                  "Welcome Back!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 33,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF392626),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 30),
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      color: ColorsData.textColor,
+                    ),
+                    onPressed: () => context.pop(),
                   ),
-                ),
-                const SizedBox(height: 100),
-                CustomTextField(labelText: 'Email', icon: Icon(Icons.email)),
-                const SizedBox(height: 20),
-                CustomTextField(labelText: 'Password', icon: Icon(Icons.lock)),
-
-                const SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextButton(
-                    onPressed: () {
-                      // Handle forgot password action
-                    },
-                    child: const Text(
-                      "Forgot your password?",
-                      style: TextStyle(color: Color(0xFF392626)),
+                  const SizedBox(width: 85),
+                  Text(
+                    'Hello!',
+                    style: GoogleFonts.leagueSpartan(
+                      fontSize: 24,
+                      color: ColorsData.textColor,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF392626),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 100,
-                      vertical: 15,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    elevation: 10,
-                  ),
-                  child: const Text(
-                    "Log In",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                ],
+              ),
+              const SizedBox(height: 5),
+              Form(
+                key: _keyForm,
+                autovalidateMode: autovalidateMode,
+                child: Column(
                   children: [
-                    const Text("Don't have an account?"),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return SignupView();
-                            },
+                    Container(
+                      height: 100,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(AssetsData.logoLight2),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 100),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'welcome back!',
+                          style: GoogleFonts.leagueSpartan(
+                            fontSize: 32,
+                            color: ColorsData.textColor,
+                            fontWeight: FontWeight.w400,
                           ),
-                        );
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    CustomTextField(
+                      onSaved: (value) {
+                        userEmail = value;
                       },
-                      child: const Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF392626),
+                      hintText: 'Email or username',
+                    ),
+                    const SizedBox(height: 20),
+                    CustomTextField(
+                      onSaved: (value) {
+                        password = value;
+                      },
+                      hintText: 'Password',
+                      icon: const Icon(
+                        Icons.visibility_off,
+                        color: ColorsData.bottomsColor,
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+
+                    Container(
+                      width: double.infinity,
+                      alignment: Alignment.centerLeft,
+                      child: TextButton(
+                        onPressed: () => context.push('/ForgotPasswordView'),
+                        child: Text(
+                          'Forgot password?',
+                          style: GoogleFonts.poppins(
+                            color: ColorsData.textColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 50),
+                    CustumElevatedBottom(
+                      buttonColor: ColorsData.bottomsColor,
+                      borderColor: ColorsData.bottomsColor,
+                      textColor: Colors.white,
+                      text: "Log in",
+                      onTap: () {
+                        if (_keyForm.currentState!.validate()) {
+                          _keyForm.currentState!.save();
+                        } else {
+                          autovalidateMode = AutovalidateMode.always;
+                          setState(() {});
+                        }
+                        context.push('/NavigationBottomBar');
+                      },
+                    ),
+                    const SizedBox(height: 2),
+                    Container(
+                      width: double.infinity,
+                      alignment: Alignment.centerLeft,
+                      child: TextButton(
+                        onPressed: () {
+                          context.push('/SignupView');
+                        },
+                        child: Text(
+                          'Don\'t have an account? sign up',
+                          style: GoogleFonts.poppins(
+                            color: ColorsData.textColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

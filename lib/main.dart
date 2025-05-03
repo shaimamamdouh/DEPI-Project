@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:readio/config/cache/cache_helper.dart';
-import 'package:readio/features/Splash/presentaion/views/splash_view.dart';
+import 'package:readio/core/utils/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
@@ -22,7 +19,7 @@ class Readio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp.router(
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -35,7 +32,7 @@ class Readio extends StatelessWidget {
       locale: Locale('en'), // Default locale
 
       debugShowCheckedModeBanner: false,
-      home: SplashView(),
+      routerConfig: Routes.router,
     );
   }
 }
