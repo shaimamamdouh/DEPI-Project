@@ -2,10 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:readio/features/home/presentation/views/widgets/custom_book_item.dart';
 
 class RecommendedBooksListView extends StatelessWidget {
-  const RecommendedBooksListView({
-    super.key,
-    required this.bookCovers,
-  });
+  const RecommendedBooksListView({super.key, required this.bookCovers});
 
   final List<String> bookCovers;
 

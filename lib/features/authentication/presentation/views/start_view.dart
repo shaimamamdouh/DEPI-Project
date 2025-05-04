@@ -53,7 +53,7 @@ class StartView extends StatelessWidget {
                 borderColor: ColorsData.bottomsColor,
                 textColor: Colors.white,
                 text: "Log in",
-                onTap:() => context.push('/LoginView'),
+                onTap: () => context.push('/LoginView'),
               ),
               const SizedBox(height: 16),
               CustumElevatedBottom(

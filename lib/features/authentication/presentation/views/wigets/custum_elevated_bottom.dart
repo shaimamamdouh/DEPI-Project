@@ -26,12 +26,8 @@ class CustumElevatedBottom extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16),
       ),
       child: Center(
-        child: Text(
-          text,
-          style: TextStyle(fontSize: 18, color: textColor),
-        ),
+        child: Text(text, style: TextStyle(fontSize: 18, color: textColor)),
       ),
     );
-
   }
 }

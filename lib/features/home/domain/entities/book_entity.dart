@@ -1,6 +1,5 @@
 class BookEntity {
-  String image;
-  BookEntity({
-    required this.image,
-  });
+  final String? image;
+  
+  BookEntity({ required this.image});
 }

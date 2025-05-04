@@ -1,9 +1,6 @@
-class CategoryEntity {
-  String title;
-  String image;
-  CategoryEntity({
-    required this.title,
-    required this.image,
-  });
+class BookCategoryEntity {
+  final String name;
+  final String iconUrl;
 
+  BookCategoryEntity({required this.name, required this.iconUrl});
 }

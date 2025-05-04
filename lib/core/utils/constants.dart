@@ -5,7 +5,7 @@ abstract class ColorsData {
   static const Color secondaryColor = Color(0xffD2B48C);
   static const Color bottomsColor = Color(0xffA0522D);
   static const Color textColor = Color(0xff4B2E1E);
-} 
+}
 
 abstract class AssetsData {
   static const String logoLight = "assets/images/logo_light_theme.png";
@@ -13,9 +13,4 @@ abstract class AssetsData {
   static const String logoDark = "assets/images/logo_dark_theme.png";
 }
 
-
-abstract class TextStyles{
-  
-}
-
-
+abstract class TextStyles {}

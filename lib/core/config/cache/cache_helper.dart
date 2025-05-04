@@ -5,12 +5,10 @@ class CacheHelper {
   static late SharedPreferences _sharedPreferences; //declare the variable
   static final secureStorage = FlutterSecureStorage();
 
-
   static init() async {
     _sharedPreferences =
         await SharedPreferences.getInstance(); //initialize the variable
   }
-
 
   //save data to shared preferences
   static Future<bool> setData({
@@ -26,7 +24,6 @@ class CacheHelper {
     }
     return false;
   }
-
 
   //get data from shared preferences
   static dynamic getData({required String key}) {
@@ -66,4 +63,3 @@ class CacheHelper {
     await secureStorage.deleteAll();
   }
 }
-

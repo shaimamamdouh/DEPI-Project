@@ -1,18 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:readio/core/utils/constants.dart';
+import 'package:readio/features/home/domain/entities/category_entity.dart';
 
 class CustomCategoryItem extends StatelessWidget {
-  const CustomCategoryItem({super.key, required this.text});
-  final String text;
+  const CustomCategoryItem({super.key, required this.categories});
+
+  final BookCategoryEntity categories;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(right: 8),
-      child: Chip(
-        label: Text(text),
-        backgroundColor: ColorsData.bottomsColor,
-        labelStyle: TextStyle(color: ColorsData.secondaryColor),
+    return SizedBox(
+      height: 100,
+      width: 80,
+      child: Column(
+        children: [
+          SvgPicture.asset(categories.iconUrl, width: 30, height: 30),
+          const SizedBox(height: 8),
+          Expanded(
+            child: Text(
+              categories.name,
+              //  overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: ColorsData.textColor,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

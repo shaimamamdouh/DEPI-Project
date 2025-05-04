@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:readio/config/cache/cache_helper.dart';
+import 'package:readio/core/config/cache/cache_helper.dart';
 import 'package:readio/core/utils/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 

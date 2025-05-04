@@ -18,44 +18,44 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomPaner(),
-              SizedBox(height: 24),
-              CustomMainText(text: 'Check Categories:'),
-              SizedBox(
-                height: 50,
-                child: CategoriesListView(categories: categories),
-              ),
-              SizedBox(height: 24),
-              CustomMainText(text: 'Top picks for you:'),
-              SizedBox(height: 12),
-              SizedBox(
-                height: 200,
-                child: TopBooksListView(bookCovers: bookCovers),
-              ),
-              SizedBox(height: 24),
-              CustomMainText(text: 'Your books:'),
-              SizedBox(height: 12),
-              SizedBox(
-                height: 200,
-                child: YourBooksListView(bookCovers: bookCovers),
-              ),
-              SizedBox(height: 24),
-              CustomMainText(text: 'Recommended for you:'),
-              SizedBox(height: 12),
-              SizedBox(
-                height: 200,
-                child: RecommendedBooksListView(bookCovers: bookCovers),
-              ),
-            ],
-          ),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomPaner(),
+            SizedBox(height: 24),
+            CustomMainText(text: 'Check Categories:'),
+            SizedBox(height: 12),
+            SizedBox(
+              height: 70,
+              child: CategoriesListView(categories: categories),
+            ),
+            SizedBox(height: 24),
+            CustomMainText(text: 'Top picks for you:'),
+            SizedBox(height: 12),
+            SizedBox(
+              height: 200,
+              child: TopBooksListView(bookCovers: bookCovers),
+            ),
+            SizedBox(height: 24),
+            CustomMainText(text: 'Your books:'),
+            SizedBox(height: 12),
+            SizedBox(
+              height: 200,
+              child: YourBooksListView(bookCovers: bookCovers),
+            ),
+            SizedBox(height: 24),
+            CustomMainText(text: 'Recommended for you:'),
+            SizedBox(height: 12),
+            SizedBox(
+              height: 200,
+              child: RecommendedBooksListView(bookCovers: bookCovers),
+            ),
+          ],
         ),
-      );
-    
+      ),
+    );
   }
 }

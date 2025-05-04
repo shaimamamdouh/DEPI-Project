@@ -3,9 +3,7 @@ import 'package:readio/core/utils/constants.dart';
 import 'package:readio/features/home/presentation/views/widgets/custom_icon.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const HomeAppBar({
-    super.key,
-  });
+  const HomeAppBar({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -23,7 +21,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: Image(image: AssetImage(AssetsData.logoLight2), height: 60),
       centerTitle: true,
-    
+
       actions: [
         CustomIconButtom(icon: Icons.notifications, onTap: () {}),
         const SizedBox(width: 5),

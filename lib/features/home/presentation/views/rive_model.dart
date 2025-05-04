@@ -7,6 +7,7 @@ class RiveModel {
     required this.stateMachineName,
   });
 }
+
 List<RiveModel> bottomNavItems = [
   RiveModel(
     src: "assets/animated-icons.riv/home.riv",
@@ -17,8 +18,8 @@ List<RiveModel> bottomNavItems = [
     src: "assets/animated-icons.riv/community.riv",
     artboard: "COMMUNITY",
     stateMachineName: "COMMUNITY_Interactivity",
-   
-  ),RiveModel(
+  ),
+  RiveModel(
     src: "assets/animated-icons.riv/search.riv",
     artboard: "SEARCH",
     stateMachineName: "SEARCH_Interactivity",
@@ -28,5 +29,4 @@ List<RiveModel> bottomNavItems = [
     artboard: "Saved",
     stateMachineName: "SAVED_Interactivity",
   ),
-  
 ];

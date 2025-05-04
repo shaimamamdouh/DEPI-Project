@@ -3,7 +3,6 @@ import 'package:readio/features/Splash/presentaion/views/splash_view.dart';
 import 'package:readio/features/authentication/presentation/views/forgot_password_view.dart';
 import 'package:readio/features/authentication/presentation/views/login_view.dart';
 import 'package:readio/features/authentication/presentation/views/send_code_view.dart';
-import 'package:readio/features/authentication/presentation/views/signup_view.dart';
 import 'package:readio/features/authentication/presentation/views/start_view.dart';
 import 'package:readio/features/home/presentation/views/home_view.dart';
 import 'package:readio/features/home/presentation/views/navigation_bottms_bar.dart';

@@ -2,10 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:readio/features/home/presentation/views/widgets/custom_book_item.dart';
 
 class YourBooksListView extends StatelessWidget {
-  const YourBooksListView({
-    super.key,
-    required this.bookCovers,
-  });
+  const YourBooksListView({super.key, required this.bookCovers});
 
   final List<String> bookCovers;
 
