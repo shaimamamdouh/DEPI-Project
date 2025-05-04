@@ -28,13 +28,18 @@ class SignupView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 75),
-                CustomTextField(labelText: 'Email', icon: Icon(Icons.email)),
+
+                // ✅ حقل الاسم الجديد
+                CustomTextField(labelText: 'Name', icon: Icon(Icons.person)),
 
                 const SizedBox(height: 25),
+                CustomTextField(labelText: 'Email', icon: Icon(Icons.email)),
+                const SizedBox(height: 25),
                 CustomTextField(labelText: 'Password', icon: Icon(Icons.lock)),
-                SizedBox(height: 25),
+                const SizedBox(height: 25),
                 CustomTextField(labelText: 'Phone', icon: Icon(Icons.phone)),
-                SizedBox(height: 100),
+                const SizedBox(height: 100),
+
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(

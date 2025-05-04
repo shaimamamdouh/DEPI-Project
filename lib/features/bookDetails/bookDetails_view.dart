@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:readio/features/bookDetails/bookDetails_custom.dart';
+import 'package:readio/features/bookDetails/readingBook.dart'; // صفحة القراءة
+import 'package:readio/features/bookDetails/listeningBook.dart'; // صفحة الاستماع
 
 class BookDetailPage extends StatelessWidget {
   final Book book;
@@ -14,15 +16,13 @@ class BookDetailPage extends StatelessWidget {
         title: Text(book.title),
         backgroundColor: const Color(0xFFFEF6E3),
       ),
-      body: SingleChildScrollView( // إضافة خاصية التمرير
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-              const SizedBox(height: 40), // Adjust this to move the image lower
-
+              const SizedBox(height: 40),
 
               Center(
                 child: Image.asset(
@@ -33,7 +33,6 @@ class BookDetailPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 30),
-
 
               Center(
                 child: Text(
@@ -46,7 +45,7 @@ class BookDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
 
-              // كلمة "Author" مع اسم المؤلف
+
               Text(
                 'Author:',
                 style: const TextStyle(
@@ -62,7 +61,7 @@ class BookDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
-              // كتابة "Description" ثم الوصف
+
               const Text(
                 'Description:',
                 style: TextStyle(
@@ -78,12 +77,19 @@ class BookDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 30),
 
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      // التنقل إلى صفحة ReadingBook
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ReadingBook(book: book),
+                        ),
+                      );
+                    },
                     icon: const Icon(Icons.book),
                     label: const Text('Read'),
                     style: ElevatedButton.styleFrom(
@@ -92,21 +98,29 @@ class BookDetailPage extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.headset), // أيقونة الاستماع
+                    onPressed: () {
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ListeningPage(book: book),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.headset),
                     label: const Text('Listen'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF392626), // اللون الأساسي
-                      foregroundColor: const Color(0xFFFEF6E3), // لون النص الأبيض
+                      backgroundColor: const Color(0xFF392626),
+                      foregroundColor: const Color(0xFFFEF6E3),
                     ),
                   ),
                   ElevatedButton.icon(
                     onPressed: () {},
-                    icon: const Icon(Icons.save),
-                    label: const Text('Save'),
+                    icon: const Icon(Icons.favorite),
+                    label: const Text('Favorite'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF392626), // اللون الأساسي
-                      foregroundColor: const Color(0xFFFEF6E3), // لون النص الأبيض
+                      backgroundColor: const Color(0xFF392626),
+                      foregroundColor: const Color(0xFFFEF6E3),
                     ),
                   ),
                 ],
