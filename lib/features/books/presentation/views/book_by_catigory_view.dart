@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
 class BookByCatigoryView extends StatelessWidget {
   const BookByCatigoryView({super.key});
 
@@ -40,7 +39,7 @@ class BookBycatigoryItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: GestureDetector(
-        onTap: ()=>  context.push('/BookDetailsView'),
+        onTap: () => context.push('/BookDetailsView'),
         child: Container(
           height: 100,
           width: MediaQuery.of(context).size.width,
@@ -59,9 +58,12 @@ class BookBycatigoryItem extends StatelessWidget {
           child: Row(
             children: [
               Image.asset('assets/images/kite_runner.jpg'),
-        
+
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 10,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

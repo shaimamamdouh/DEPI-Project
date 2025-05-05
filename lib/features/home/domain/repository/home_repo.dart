@@ -4,6 +4,6 @@ import 'package:readio/features/home/domain/entities/book_entity.dart';
 
 abstract class HomeRepo {
   Future<Either<Failure, List<BookEntity>>> fitchTopBooks();
-  Future<Either<Failure, List<BookEntity>>> fitchRecommendedBooks();
+  Future<Either<Failure, List<BookEntity>>> fitchAudioBooks();
   Future<Either<Failure, List<BookEntity>>> fitchYourBooks();
 }

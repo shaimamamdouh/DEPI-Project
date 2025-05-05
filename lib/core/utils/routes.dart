@@ -50,15 +50,15 @@ abstract class Routes {
         path: '/BookByCatigoryView',
         builder: (context, state) => const BookByCatigoryView(),
       ),
-       GoRoute(
+      GoRoute(
         path: '/ReadingBookView',
         builder: (context, state) => const ReadingBookView(),
       ),
-       GoRoute(
+      GoRoute(
         path: '/ListeningBookView',
         builder: (context, state) => const ListeningBookView(),
       ),
-       GoRoute(
+      GoRoute(
         path: '/BookDetailsView',
         builder: (context, state) => const BookDetailsView(),
       ),

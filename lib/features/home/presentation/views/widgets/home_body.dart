@@ -8,7 +8,11 @@ import 'package:readio/features/home/presentation/views/widgets/your_books_list_
 import 'package:readio/core/utils/catagory_book_list.dart';
 
 class HomeBody extends StatelessWidget {
-  const HomeBody({super.key, required this.bookCovers, required List<String> categories});
+  const HomeBody({
+    super.key,
+    required this.bookCovers,
+    required List<String> categories,
+  });
 
   final List<String> bookCovers;
 

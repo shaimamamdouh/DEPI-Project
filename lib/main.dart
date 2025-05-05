@@ -3,13 +3,16 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:readio/core/config/cache/cache_helper.dart';
 import 'package:readio/core/utils/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:readio/features/home/domain/entities/book_entity.dart';
 
 void main() async {
-  await Hive.initFlutter(); 
-  var box1 = await Hive.openBox('books');
-  var box2 = await Hive.openBox('users');
+  await Hive.initFlutter();
 
-  
+  await Hive.openBox('users');
+  await Hive.openBox('books');
+  await Hive.openBox('audiobooks');
+  Hive.registerAdapter(BookEntityAdapter());
+
   WidgetsFlutterBinding.ensureInitialized(); //initialize the widgets binding
   await CacheHelper.init();
   await CacheHelper.setData(key: 'name', value: "ahmed");
