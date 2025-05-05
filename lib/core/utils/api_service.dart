@@ -1,25 +1,18 @@
-
 import 'package:dio/dio.dart';
-
 
 class ApiService {
   final Dio _dio;
-  final baseUrl = 'http://openlibrary.org/';
+  final baseUrl = 'https://www.googleapis.com/books/v1/';
   ApiService(this._dio);
 
   Future<Map<String, dynamic>> get({required String endPoint}) async {
-    try {
-      var response = await _dio.get('$baseUrl$endPoint');
-      if (response.statusCode == 200) {
-        return response.data;
-      } else {
-        throw Exception("Error: Status code ${response.statusCode}");
-      }
-    } catch (e) {
-      throw Exception("Failed to fetch data: $e");
-    }
+    var response = await _dio.get('$baseUrl$endPoint');
+
+    return response.data;
   }
-/* 
+
+  //static void getData({required String endPoint}) {}
+  /* 
   Future<dynamic> post({
     required String url,
     @required dynamic body,

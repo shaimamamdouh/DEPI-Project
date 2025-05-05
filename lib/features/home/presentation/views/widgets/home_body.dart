@@ -5,15 +5,11 @@ import 'package:readio/features/home/presentation/views/widgets/custom_paner.dar
 import 'package:readio/features/home/presentation/views/widgets/recommended_books_list_view.dart';
 import 'package:readio/features/home/presentation/views/widgets/top_books_list_view.dart';
 import 'package:readio/features/home/presentation/views/widgets/your_books_list_view.dart';
+import 'package:readio/core/utils/catagory_book_list.dart';
 
 class HomeBody extends StatelessWidget {
-  const HomeBody({
-    super.key,
-    required this.categories,
-    required this.bookCovers,
-  });
+  const HomeBody({super.key, required this.bookCovers, required List<String> categories});
 
-  final List<String> categories;
   final List<String> bookCovers;
 
   @override
