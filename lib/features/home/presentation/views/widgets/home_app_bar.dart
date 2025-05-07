@@ -12,13 +12,13 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
-      leading: Padding(
+     /*  leading: Padding(
         padding: const EdgeInsets.only(left: 16),
         child: CircleAvatar(
-          backgroundImage: AssetImage('assets/profile.jpg'),
+          backgroundImage: AssetImage('readio/assets/images/kite_runner.jpg'),
           radius: 35,
         ),
-      ),
+      ), */
       title: Image(image: AssetImage(AssetsData.logoLight2), height: 60),
       centerTitle: true,
 

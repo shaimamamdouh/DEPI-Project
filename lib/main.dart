@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:readio/core/config/cache/cache_helper.dart';
+import 'package:readio/core/utils/bloc_observer.dart';
+import 'package:readio/core/utils/functions/locator_service.dart';
 import 'package:readio/core/utils/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:readio/features/home/domain/entities/book_entity.dart';
 
 void main() async {
   await Hive.initFlutter();
-
-  await Hive.openBox('users');
-  await Hive.openBox('books');
-  await Hive.openBox('audiobooks');
   Hive.registerAdapter(BookEntityAdapter());
+  await Hive.openBox<BookEntity>('users');
+  await Hive.openBox<BookEntity>('Topbooks');
+  await Hive.openBox<BookEntity>('audiobooks');
+
+  locatorService();
 
   WidgetsFlutterBinding.ensureInitialized(); //initialize the widgets binding
-  await CacheHelper.init();
-  await CacheHelper.setData(key: 'name', value: "ahmed");
-  CacheHelper.getData(key: 'name');
-  print(CacheHelper.getData(key: 'name'));
-  await CacheHelper.removeData(key: 'name');
-  print(CacheHelper.getData(key: 'name'));
+
+  Bloc.observer = SimpleBlocObserver();
   runApp(const Readio());
 }
 

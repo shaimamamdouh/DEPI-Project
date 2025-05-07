@@ -3,7 +3,7 @@ import 'package:readio/core/errors/failure.dart';
 import 'package:readio/features/home/domain/entities/book_entity.dart';
 
 abstract class HomeRepo {
-  Future<Either<Failure, List<BookEntity>>> fitchTopBooks();
-  Future<Either<Failure, List<BookEntity>>> fitchAudioBooks();
-  Future<Either<Failure, List<BookEntity>>> fitchYourBooks();
+  Future<Either<Failure, List<BookEntity>>> fetchTopBooks();
+  Future<Either<Failure, List<BookEntity>>> fetchAudioBooks();
+  Future<Either<Failure, List<BookEntity>>> fetchYourBooks();
 }

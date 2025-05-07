@@ -17,7 +17,7 @@ class BookEntityAdapter extends TypeAdapter<BookEntity> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return BookEntity(
-      image: fields[0] as String?,
+      image: fields[0] as String,
     );
   }
 

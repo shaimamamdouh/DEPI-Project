@@ -21,7 +21,12 @@ class BookModel extends BookEntity {
     this.volumeInfo,
     this.saleInfo,
     this.accessInfo,
-  }) : super(image: VolumeInfo().imageLinks?.thumbnail ?? '');
+  }) : super(
+         image: (volumeInfo?.imageLinks?.thumbnail ?? '').replaceFirst(
+           'http://',
+           'https://',
+         ),
+       );
 
   factory BookModel.fromJson(Map<String, dynamic> json) => BookModel(
     kind: json['kind'] as String?,

@@ -4,30 +4,39 @@ import 'package:readio/features/home/data/models/book_model/book_model.dart';
 import 'package:readio/features/home/domain/entities/book_entity.dart';
 
 abstract class HomeRemoteDataSource {
-  Future<List<BookEntity>> fitchTopBooks();
-  Future<List<BookEntity>> fitchAudioBooks();
+  Future<List<BookEntity>> fetchTopBooks();
+  Future<List<BookEntity>> fetchAudioBooks();
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   final ApiService apiService;
   HomeRemoteDataSourceImpl({required this.apiService});
 
-  @override
-  Future<List<BookEntity>> fitchTopBooks() async {
-    var data = await apiService.get(
-      url:
-          'https://www.googleapis.com/books/v1/volumes?q=best+books&orderBy=relevance&maxResults=20',
+@override
+Future<List<BookEntity>> fetchTopBooks() async {
+  var data = await apiService.get(
+    url: 'https://www.googleapis.com/books/v1/volumes?Filtering=free-ebooks&Sorting=newest&q=programming',
+  );
+
+  List<BookEntity> books = [];
+
+  for (var bookMap in data["items"]) {
+    print(
+      '🔍 from API: ${bookMap["volumeInfo"]?["imageLinks"]?["thumbnail"]}',
     );
-    List<BookEntity> books = [];
-    for (var bookMap in data["items"]) {
-      books.add(BookModel.fromJson(bookMap));
-    }
-    await saveBooks(books);
-    return books;
+    books.add(BookModel.fromJson(bookMap));
   }
 
-  @override
-  Future<List<BookEntity>> fitchAudioBooks() {
-    throw UnimplementedError();
-  }
+  await saveBooks(books, "Topbooks");
+
+  return books;
 }
+
+
+    @override
+    Future<List<BookEntity>> fetchAudioBooks() {
+      throw UnimplementedError();
+    }
+  }
+
+
