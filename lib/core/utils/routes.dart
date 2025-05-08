@@ -12,6 +12,9 @@ import 'package:readio/features/home/presentation/views/home_view.dart';
 import 'package:readio/features/home/presentation/views/navigation_bottms_bar.dart';
 import 'package:readio/features/search/presentation/views/search_view.dart';
 
+import '../../features/home/data/models/book_model/reading_view.dart';
+import '../../features/home/domain/entities/book_entity.dart';
+
 abstract class Routes {
   static final router = GoRouter(
     routes: [
@@ -60,7 +63,17 @@ abstract class Routes {
       ),
       GoRoute(
         path: '/BookDetailsView',
-        builder: (context, state) => const BookDetailsView(),
+        builder: (context, state) {
+          final book = state.extra as BookEntity; // استقبال الـ book من extra
+          return BookDetailsView(book: book);
+        },
+      ),
+      GoRoute(
+        path: '/ReadingView',
+        builder: (context, state) {
+          final book = state.extra as BookEntity?;
+          return ReadingView(book: book);
+        },
       ),
     ],
   );

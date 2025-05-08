@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:readio/core/utils/constants.dart';
 import 'package:readio/features/books/presentation/views/widgets/custom_elevated_button.dart';
+import 'package:readio/features/home/domain/entities/book_entity.dart';
 
 class BookDetailsBody extends StatelessWidget {
-  const BookDetailsBody({super.key});
+  final BookEntity book;
+
+  const BookDetailsBody({super.key, required this.book});
 
   @override
   Widget build(BuildContext context) {
@@ -15,20 +18,22 @@ class BookDetailsBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-
             Center(
-              child: Image.asset(
-                'assets/images/kite_runner.jpg',
+              child: Image.network(
+                book.image != null && book.image!.isNotEmpty
+                    ? book.image!
+                    : 'https://via.placeholder.com/150',
                 width: MediaQuery.of(context).size.width * 0.5,
                 height: 250,
                 fit: BoxFit.fill,
+                errorBuilder: (context, error, stackTrace) =>
+                    Image.asset('assets/images/placeholder.jpg'),
               ),
             ),
             const SizedBox(height: 10),
-
             Center(
               child: Text(
-                'The Kite Runner',
+                book.title ?? 'Unknown Title',
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
@@ -37,10 +42,9 @@ class BookDetailsBody extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 3),
-
             Center(
               child: Text(
-                'Khaled Hosseini',
+                book.author ?? 'Unknown Author',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w300,
@@ -48,17 +52,15 @@ class BookDetailsBody extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-
             const Text(
               'Description:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Text(
-              'The Kite Runner is a novel by Khaled Hosseini, published in 2003. It tells the story',
+              book.description ?? 'No description available.',
               style: const TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 120),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -66,10 +68,9 @@ class BookDetailsBody extends StatelessWidget {
                   text: 'Read',
                   icon: const Icon(Icons.book),
                   onPressed: () {
-                    context.push('/BookByCatigoryView');
+                    context.push('/ReadingView', extra: book); // الانتقال لـ ReadingView
                   },
                 ),
-
                 CustomElevatedButton(
                   text: 'Listen',
                   icon: const Icon(Icons.headset),
@@ -77,12 +78,11 @@ class BookDetailsBody extends StatelessWidget {
                     context.push('/ListeningBookView');
                   },
                 ),
-
                 CustomElevatedButton(
                   text: 'Favorite',
                   icon: const Icon(Icons.favorite),
                   onPressed: () {
-                    context.push('/ListeningBookView');
+                    // منطق إضافة الكتاب للمفضلة
                   },
                 ),
               ],

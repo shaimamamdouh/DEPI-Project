@@ -1,26 +1,38 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../domain/entities/book_entity.dart';
 
 class CustomBookItem extends StatelessWidget {
-  const CustomBookItem({super.key, required this.image});
   final String image;
+  final BookEntity book; // أضفنا الـ book كامل
+
+  const CustomBookItem({super.key, required this.image, required this.book});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(right: 12),
-      child: ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: AspectRatio(
-        aspectRatio: 2.6 / 4,
-        child: CachedNetworkImage(
-          fit: BoxFit.fill,
-          imageUrl: image,
-          errorWidget: (context, url, error) => const Icon(
-            Icons.error,
+    return GestureDetector(
+      onTap: () {
+        context.push('/BookDetailsView', extra: book);
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.network(
+            image,
+            width: 120,
+            height: 180,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) => Image.asset(
+              'assets/images/placeholder.jpg',
+              width: 120,
+              height: 180,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
-      ),
       ),
     );
   }

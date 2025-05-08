@@ -12,7 +12,7 @@ class RecommendedBooksListView extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: bookCovers.length,
       itemBuilder: (context, index) {
-        return CustomBookItem(image: bookCovers[index]);
+       // return CustomBookItem(image: bookCovers[index]);
       },
     );
   }

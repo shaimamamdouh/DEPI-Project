@@ -50,7 +50,7 @@ class BookByCatigoryBody extends StatelessWidget {
 }
 
 class BookBycatigoryItem extends StatelessWidget {
-  final BookEntity book; // لازم يكون book معرّف هنا
+  final BookEntity book;
   const BookBycatigoryItem({super.key, required this.book});
 
   @override
@@ -58,7 +58,10 @@ class BookBycatigoryItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: GestureDetector(
-        onTap: () => context.push('/BookDetailsView'),
+        onTap: () {
+          // تمرير الـ book كـ extra في go_router
+          context.push('/BookDetailsView', extra: book);
+        },
         child: Container(
           height: 100,
           width: MediaQuery.of(context).size.width,
@@ -70,34 +73,40 @@ class BookBycatigoryItem extends StatelessWidget {
                 color: Colors.black.withOpacity(0.1),
                 spreadRadius: 2,
                 blurRadius: 5,
-                offset: const Offset(0, 3), // changes position of shadow
+                offset: const Offset(0, 3),
               ),
             ],
           ),
           child: Row(
             children: [
               Image.network(
-                book.image,
+                book.image ?? 'https://via.placeholder.com/80x100', // fallback image
                 width: 80,
                 height: 100,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => Image.asset('assets/images/placeholder.jpg'),
+                errorBuilder: (context, error, stackTrace) =>
+                    Image.asset('assets/images/placeholder.jpg'),
               ),
-
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 10,
-                ),
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('the kite runner'),
-                    Text('Khaled Hosseini'),
+                    Text(
+                      book.title ?? 'Unknown Title',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      book.author ?? 'Unknown Author',
+                      style: const TextStyle(color: Colors.grey),
+                    ),
                     Row(
                       children: [
-                        Text('3.5'),
-                        Icon(Icons.star, color: Colors.yellow),
+                        Text(
+                          book.rating?.toString() ?? 'N/A',
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                        const Icon(Icons.star, color: Colors.yellow, size: 16),
                       ],
                     ),
                   ],

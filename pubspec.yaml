@@ -21,6 +21,7 @@ version: 1.0.0+1
 environment:
   sdk: ^3.7.2
 dependencies:
+  webview_flutter: ^4.11.0
   bloc: ^9.0.0
   cached_network_image: ^3.4.1
   cupertino_icons: ^1.0.8

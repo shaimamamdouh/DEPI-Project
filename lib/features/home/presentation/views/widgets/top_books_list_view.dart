@@ -22,11 +22,15 @@ class TopBooksListView extends StatelessWidget {
       itemCount: bookCovers.length,
       itemBuilder: (context, index) {
 
+        final imageUrl = bookCovers[index].image != null &&
+            bookCovers[index].image!.isNotEmpty
+            ? bookCovers[index].image!
+            : 'https://via.placeholder.com/150'; // رابط placeholder أخف
         return CustomBookItem(
-          image:
-              (bookCovers[index].image.isNotEmpty)
-                  ? bookCovers[index].image
-                  : 'https://archive.org/download/placeholder-image/placeholder-image.jpg',
+          image: bookCovers[index].image != null && bookCovers[index].image!.isNotEmpty
+              ? bookCovers[index].image!
+              : 'https://via.placeholder.com/150',
+          book: bookCovers[index], // تمرير الـ book
         );
       },
     );
