@@ -5,7 +5,7 @@ import 'package:readio/core/utils/bloc_observer.dart';
 import 'package:readio/core/utils/functions/locator_service.dart';
 import 'package:readio/core/utils/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:readio/features/home/domain/entities/book_entity.dart';
+import 'package:readio/domain/entities/book_entity.dart';
 
 void main() async {
   await Hive.initFlutter();

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:readio/core/utils/constants.dart';
-import 'package:readio/features/home/domain/entities/category_entity.dart';
+import 'package:readio/domain/entities/category_entity.dart';
 
 class CustomCategoryItem extends StatelessWidget {
   const CustomCategoryItem({super.key, required this.categories});

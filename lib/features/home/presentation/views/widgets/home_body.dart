@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:readio/features/home/domain/entities/category_entity.dart';
+import 'package:readio/domain/entities/category_entity.dart';
 import 'package:readio/features/home/presentation/manager/top_books_cubit/fetch_top_books_cubit.dart';
 import 'package:readio/features/home/presentation/views/widgets/categories_list_view.dart';
 import 'package:readio/features/home/presentation/views/widgets/custom_main_text.dart';

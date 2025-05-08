@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:readio/features/home/domain/entities/book_entity.dart';
+import 'package:readio/domain/entities/book_entity.dart';
 import 'package:readio/features/home/presentation/views/widgets/custom_book_item.dart';
 
 class TopBooksListView extends StatelessWidget {
@@ -24,7 +24,7 @@ class TopBooksListView extends StatelessWidget {
 
         return CustomBookItem(
           image:
-              (bookCovers[index].image.isNotEmpty)
+              (bookCovers[index].image.isNotEmpty == true)
                   ? bookCovers[index].image
                   : 'https://archive.org/download/placeholder-image/placeholder-image.jpg',
         );

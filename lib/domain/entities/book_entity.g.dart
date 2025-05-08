@@ -8,7 +8,7 @@ part of 'book_entity.dart';
 
 class BookEntityAdapter extends TypeAdapter<BookEntity> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
   BookEntity read(BinaryReader reader) {
@@ -17,16 +17,31 @@ class BookEntityAdapter extends TypeAdapter<BookEntity> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return BookEntity(
-      image: fields[0] as String,
+      title: fields[0] as String,
+      authors: (fields[1] as List).cast<String>(),
+      image: fields[2] as String,
+      rating: fields[3] as double,
+      description: fields[4] as String,
+      readUrl: fields[5] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, BookEntity obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.image);
+      ..write(obj.title)
+      ..writeByte(1)
+      ..write(obj.authors)
+      ..writeByte(2)
+      ..write(obj.image)
+      ..writeByte(3)
+      ..write(obj.rating)
+      ..writeByte(4)
+      ..write(obj.description)
+      ..writeByte(5)
+      ..write(obj.readUrl);
   }
 
   @override

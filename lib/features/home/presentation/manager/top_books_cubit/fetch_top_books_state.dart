@@ -6,7 +6,6 @@ sealed class FetchTopBooksState {}
 final class FetchTopBooksInitial extends FetchTopBooksState {}
 
 final class FetchTopBooksLoading extends FetchTopBooksState {}
-
 final class FetchTopBooksFailure extends FetchTopBooksState {
   final String errorMessage;
 

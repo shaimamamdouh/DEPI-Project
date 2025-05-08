@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:readio/features/home/domain/entities/book_entity.dart';
-import 'package:readio/features/home/domain/repository/home_repo.dart';
+import 'package:readio/domain/entities/book_entity.dart';
+import 'package:readio/domain/repository/home_repo.dart';
 
 part 'fetch_top_books_state.dart';
 

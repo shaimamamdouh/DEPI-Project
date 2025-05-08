@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:readio/features/home/domain/entities/category_entity.dart';
+import 'package:readio/domain/entities/category_entity.dart';
 import 'package:readio/features/home/presentation/views/widgets/custom_category_item.dart';
 
 class CategoriesListView extends StatelessWidget {

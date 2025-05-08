@@ -1,9 +1,10 @@
 import 'package:hive/hive.dart';
-import 'package:readio/features/home/domain/entities/book_entity.dart';
+import 'package:readio/domain/entities/book_entity.dart';
 
 abstract class HomeLocalDataSource {
   Future<List<BookEntity>> fetchTopBooks();
   Future<List<BookEntity>> fetchAudioBooks();
+   
 }
 
 class HomeLocalDataSourceImpl implements HomeLocalDataSource {

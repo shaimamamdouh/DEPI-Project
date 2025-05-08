@@ -7,6 +7,8 @@ class CustomBookItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("🧱 Building CustomBookItem with image: $image");
+
     return Padding(
       padding: EdgeInsets.only(right: 12),
       child: ClipRRect(

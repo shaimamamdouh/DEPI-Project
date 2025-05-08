@@ -1,4 +1,4 @@
-import 'package:readio/features/home/domain/entities/category_entity.dart';
+import 'package:readio/domain/entities/category_entity.dart';
 
 final List<BookCategoryEntity> categories = [
   BookCategoryEntity(name: 'Fantasy', iconUrl: 'assets/svg_icons/fantasy.svg'),
