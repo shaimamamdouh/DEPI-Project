@@ -12,7 +12,7 @@ class CategoriesListView extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: categories.length,
       itemBuilder: (context, index) {
-        return CustomCategoryItem(categories: categories[index]);
+        return CustomCategoryItem(category: categories[index]);
       },
     );
   }

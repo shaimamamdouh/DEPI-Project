@@ -4,21 +4,23 @@ import 'package:readio/features/home/data/models/book_model/book_model.dart';
 import 'package:readio/features/home/domain/entities/book_entity.dart';
 
 abstract class HomeRemoteDataSource {
-  Future<List<BookEntity>> fetchTopBooks();
+  Future<List<BookEntity>> fetchTopBooks({String? category});
   Future<List<BookEntity>> fetchAudioBooks();
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   final ApiService apiService;
+
   HomeRemoteDataSourceImpl({required this.apiService});
 
   @override
-  Future<List<BookEntity>> fetchTopBooks() async {
+  Future<List<BookEntity>> fetchTopBooks({String? category}) async {
     try {
+      final query = category != null ? 'subject:$category' : 'pride+prejudice';
       var data = await apiService.get(
-        url: 'https://www.googleapis.com/books/v1/volumes?q=pride+prejudice&key=AIzaSyD6Nja_qZ2dP7QDZ8b6xDu8ttyOkpUtUPc',
+        url: 'https://www.googleapis.com/books/v1/volumes?q=$query&key=AIzaSyD6Nja_qZ2dP7QDZ8b6xDu8ttyOkpUtUPc',
       );
-      print('📡 API Response: $data');
+      print('📡 API Response for $query: $data');
 
       List<BookEntity> books = [];
       for (var bookMap in data["items"]) {
@@ -29,7 +31,8 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
       }
 
       print('📚 Saving ${books.length} books to Hive');
-      await saveBooks(books, "Topbooks");
+      // خزّن الكتب في box بناءً على الـ category
+      await saveBooks(books, category != null ? 'category_$category' : 'Topbooks');
       return books;
     } catch (e) {
       print('🔴 API Error: $e');

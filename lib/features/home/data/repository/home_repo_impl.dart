@@ -7,48 +7,42 @@ import 'package:readio/features/home/domain/entities/book_entity.dart';
 import 'package:readio/features/home/domain/repository/home_repo.dart';
 
 class HomeRepoImpl extends HomeRepo {
-  //هربط اللوكال والريموت داتا سورسز
-
   final HomeRemoteDataSource remoteDataSource;
   final HomeLocalDataSource localDataSource;
 
   HomeRepoImpl({required this.remoteDataSource, required this.localDataSource});
 
   @override
-  @override
-Future<Either<Failure, List<BookEntity>>> fetchTopBooks() async {
-  List<BookEntity> bookList;
-  try {
-    // جرب الأول من اللوكال
-    bookList = await localDataSource.fetchTopBooks();
-    
-    if (bookList.isNotEmpty) {
-      print('📦 Loaded from local: ${bookList.length} books');
+  Future<Either<Failure, List<BookEntity>>> fetchTopBooks({String? category}) async {
+    List<BookEntity> bookList;
+    try {
+      // لو مفيش category، جيب الكتب من Hive
+      if (category == null) {
+        bookList = await localDataSource.fetchTopBooks();
+        if (bookList.isNotEmpty) {
+          print('📦 Loaded from local: ${bookList.length} books');
+          for (var book in bookList) {
+            print('📥 Local book image: ${book.image}');
+          }
+          return right(bookList);
+        }
+      }
+
+      // لو فيه category أو Hive فاضي، اطلب من الـ API
+      bookList = await remoteDataSource.fetchTopBooks(category: category);
+      print('🌐 Loaded from remote: ${bookList.length} books');
       for (var book in bookList) {
-        print('📥 Local book image: ${book.image}');
+        print('🌄 Remote book image: ${book.image}');
       }
       return right(bookList);
-    } 
-
-    // بعدين جرب من الريموت
-    bookList = await remoteDataSource.fetchTopBooks();
-
-    print('🌐 Loaded from remote: ${bookList.length} books');
-    for (var book in bookList) {
-      print('🌄 Remote book image: ${book.image}');
-    }
-
-    return right(bookList);
-
-  } catch (e) {
-    if (e is DioException) {
-      return left(ServerFailure.fromDioError(e));
-    } else {
-      return left(ServerFailure(e.toString()));
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      } else {
+        return left(ServerFailure(e.toString()));
+      }
     }
   }
-}
-
 
   @override
   Future<Either<Failure, List<BookEntity>>> fetchAudioBooks() async {
@@ -71,7 +65,6 @@ Future<Either<Failure, List<BookEntity>>> fetchTopBooks() async {
 
   @override
   Future<Either<Failure, List<BookEntity>>> fetchYourBooks() {
-    // TODO: implement fetchYourBooks
     throw UnimplementedError();
   }
 }

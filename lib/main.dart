@@ -14,9 +14,9 @@ void main() async {
   await Hive.openBox<BookEntity>('Topbooks');
   await Hive.openBox<BookEntity>('audiobooks');
 
-  locatorService();
+  setupServiceLocator(); // تعديل السطر
 
-  WidgetsFlutterBinding.ensureInitialized(); //initialize the widgets binding
+  WidgetsFlutterBinding.ensureInitialized();
 
   Bloc.observer = SimpleBlocObserver();
   runApp(const Readio());
@@ -38,7 +38,6 @@ class Readio extends StatelessWidget {
         Locale('ar'), // Arabic
       ],
       locale: Locale('en'), // Default locale
-
       debugShowCheckedModeBanner: false,
       routerConfig: Routes.router,
     );

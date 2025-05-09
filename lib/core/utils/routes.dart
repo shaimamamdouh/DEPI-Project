@@ -10,16 +10,16 @@ import 'package:readio/features/books/presentation/views/listening_book_view.dar
 import 'package:readio/features/books/presentation/views/reading_book_view.dart';
 import 'package:readio/features/home/presentation/views/home_view.dart';
 import 'package:readio/features/home/presentation/views/navigation_bottms_bar.dart';
+import 'package:readio/features/home/data/models/book_model/reading_view.dart';
+import 'package:readio/features/home/domain/entities/book_entity.dart';
 import 'package:readio/features/search/presentation/views/search_view.dart';
 
 import '../../features/home/data/models/book_model/reading_view.dart';
-import '../../features/home/domain/entities/book_entity.dart';
 
 abstract class Routes {
   static final router = GoRouter(
     routes: [
       GoRoute(path: '/', builder: (context, state) => const SplashView()),
-
       GoRoute(
         path: '/StartView',
         builder: (context, state) => const StartView(),
@@ -42,7 +42,7 @@ abstract class Routes {
       ),
       GoRoute(path: '/HomeView', builder: (context, state) => HomeView()),
       GoRoute(
-        path: '/LoginView',
+        path: '/SearchView',
         builder: (context, state) => const SearchView(),
       ),
       GoRoute(
@@ -51,7 +51,10 @@ abstract class Routes {
       ),
       GoRoute(
         path: '/BookByCatigoryView',
-        builder: (context, state) => const BookByCatigoryView(),
+        builder: (context, state) {
+          final category = state.extra as String; // استقبال اسم الكاتيجوري
+          return BookByCatigoryView(category: category);
+        },
       ),
       GoRoute(
         path: '/ReadingBookView',
@@ -64,7 +67,7 @@ abstract class Routes {
       GoRoute(
         path: '/BookDetailsView',
         builder: (context, state) {
-          final book = state.extra as BookEntity; // استقبال الـ book من extra
+          final book = state.extra as BookEntity;
           return BookDetailsView(book: book);
         },
       ),

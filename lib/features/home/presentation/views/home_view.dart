@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:readio/core/utils/catagory_book_list.dart';
 import 'package:readio/core/utils/functions/locator_service.dart';
-import 'package:readio/features/home/data/repository/home_repo_impl.dart';
+import 'package:readio/features/home/domain/repository/home_repo.dart';
 import 'package:readio/features/home/presentation/manager/audio_books_cubit/fetch_audio_books_cubit.dart';
 import 'package:readio/features/home/presentation/manager/top_books_cubit/fetch_top_books_cubit.dart';
 import 'package:readio/features/home/presentation/views/widgets/home_app_bar.dart';
 import 'package:readio/features/home/presentation/views/widgets/home_body.dart';
-
 
 class HomeView extends StatelessWidget {
   final List<String> bookCovers = [
@@ -24,18 +23,16 @@ class HomeView extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => FetchTopBooksCubit(getIt.get<HomeRepoImpl>())..fetchTopBooks(),
-
+          create: (context) => FetchTopBooksCubit(getIt.get<HomeRepo>())..fetchTopBooks(),
         ),
         BlocProvider(
-          create: (context) => FetchAudioBooksCubit(getIt.get<HomeRepoImpl>())..fetchTopBooks(),
+          create: (context) => FetchAudioBooksCubit(getIt.get<HomeRepo>())..fetchTopBooks(),
         ),
       ],
       child: Scaffold(
         backgroundColor: Colors.white,
-
         appBar: HomeAppBar(),
-        body: HomeBody(categories: categories,),
+        body: const HomeBody(),
       ),
     );
   }
