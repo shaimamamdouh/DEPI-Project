@@ -19,7 +19,7 @@ class BookEntity {
   final double? rating;
 
   @HiveField(5)
-  final String? previewLink; // حقل لتحميل معاينة الكتاب
+  final String? previewLink; 
 
   BookEntity({
     this.image,

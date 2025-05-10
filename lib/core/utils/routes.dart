@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:readio/features/Splash/presentaion/views/splash_view.dart';
 import 'package:readio/features/authentication/presentation/views/login_view.dart';
+import 'package:readio/features/books/presentation/views/favourite_books_view.dart';
+import 'package:readio/features/home/presentation/views/search_view.dart';
 import 'package:readio/features/home/presentation/views/user_profile_view.dart';
 import 'package:readio/features/authentication/presentation/views/signup_view.dart';
 import 'package:readio/features/authentication/presentation/views/start_view.dart';
@@ -11,7 +13,6 @@ import 'package:readio/features/books/presentation/views/listening_book_view.dar
 import 'package:readio/features/books/presentation/views/reading_book_view.dart';
 import 'package:readio/features/home/presentation/views/home_view.dart';
 import 'package:readio/features/home/presentation/views/navigation_bottms_bar.dart';
-import 'package:readio/features/search/presentation/views/search_view.dart';
 
 import '../../features/home/data/models/book_model/reading_view.dart';
 import '../../features/home/domain/entities/book_entity.dart';
@@ -50,9 +51,12 @@ abstract class Routes {
         path: '/NavigationBottomBar',
         builder: (context, state) => const NavigationBottomBar(),
       ),
-      GoRoute(
+  GoRoute(
         path: '/BookByCatigoryView',
-        builder: (context, state) => const BookByCatigoryView(),
+        builder: (context, state) {
+          final category = state.extra as String; // استقبال اسم الكاتيجوري
+          return BookByCatigoryView(category: category);
+        },
       ),
       GoRoute(
         path: '/ReadingBookView',
@@ -65,7 +69,7 @@ abstract class Routes {
       GoRoute(
         path: '/BookDetailsView',
         builder: (context, state) {
-          final book = state.extra as BookEntity; // استقبال الـ book من extra
+          final book = state.extra as BookEntity;
           return BookDetailsView(book: book);
         },
       ),
@@ -76,6 +80,15 @@ abstract class Routes {
           return ReadingView(book: book);
         },
       ),
+
+  GoRoute(
+        path: '/FavoriteBooksView',
+        builder: (context, state) => const FavoriteBooksView(),
+      ),
+
+
+
+      
     ],
   );
 }

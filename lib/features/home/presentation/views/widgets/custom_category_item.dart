@@ -5,24 +5,26 @@ import 'package:readio/core/utils/constants.dart';
 import 'package:readio/features/home/domain/entities/category_entity.dart';
 
 class CustomCategoryItem extends StatelessWidget {
-  const CustomCategoryItem({super.key, required this.categories});
+  const CustomCategoryItem({super.key, required this.category});
 
-  final BookCategoryEntity categories;
+  final BookCategoryEntity category;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.push('/BookByCatigoryView'),
+      onTap: () {
+        context.push('/BookByCatigoryView', extra: category.name);
+      },
       child: SizedBox(
         height: 100,
         width: 80,
         child: Column(
           children: [
-            SvgPicture.asset(categories.iconUrl, width: 30, height: 30),
+            SvgPicture.asset(category.iconUrl, width: 30, height: 30),
             const SizedBox(height: 8),
             Expanded(
               child: Text(
-                categories.name,
+                category.name,
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 style: const TextStyle(

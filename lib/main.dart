@@ -6,7 +6,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:readio/core/utils/bloc_observer.dart';
 import 'package:readio/core/utils/functions/locator_service.dart';
 import 'package:readio/core/utils/routes.dart';
-import 'package:flu tter_localizations/flutter_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:readio/features/authentication/manager/cubits/login_cubit/login_cubit.dart';
 import 'package:readio/features/authentication/manager/cubits/reset_password_cubit/reset_password_cubit.dart';
 import 'package:readio/features/authentication/manager/cubits/signup_cubit/signup_cubit.dart';
@@ -27,8 +27,10 @@ void main() async {
   await Hive.openBox<BookEntity>('users');
   await Hive.openBox<BookEntity>('Topbooks');
   await Hive.openBox<BookEntity>('audiobooks');
+   await Hive.openBox<BookEntity>('favoritesBox');
+  
 
-  locatorService();
+   setupServiceLocator();
 
   Bloc.observer = SimpleBlocObserver();
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
 import 'package:readio/core/utils/constants.dart';
 import 'package:readio/features/books/presentation/views/widgets/custom_elevated_button.dart';
 import 'package:readio/features/home/domain/entities/book_entity.dart';
@@ -26,28 +27,31 @@ class BookDetailsBody extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.5,
                 height: 250,
                 fit: BoxFit.fill,
-                errorBuilder: (context, error, stackTrace) =>
-                    Image.asset('assets/images/placeholder.jpg'),
+                errorBuilder:
+                    (context, error, stackTrace) =>
+                        Image.asset('assets/images/placeholder.jpg'),
               ),
             ),
             const SizedBox(height: 10),
+
             Center(
               child: Text(
                 book.title ?? 'Unknown Title',
                 style: const TextStyle(
-                  fontSize: 24,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: ColorsData.textColor,
                 ),
               ),
             ),
+
             const SizedBox(height: 3),
             Center(
               child: Text(
                 book.author ?? 'Unknown Author',
                 style: const TextStyle(
                   fontSize: 16,
-                  fontWeight: FontWeight.w300,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
@@ -68,7 +72,10 @@ class BookDetailsBody extends StatelessWidget {
                   text: 'Read',
                   icon: const Icon(Icons.book),
                   onPressed: () {
-                    context.push('/ReadingView', extra: book); // الانتقال لـ ReadingView
+                    context.push(
+                      '/ReadingView',
+                      extra: book,
+                    ); // الانتقال لـ ReadingView
                   },
                 ),
                 CustomElevatedButton(
@@ -82,8 +89,22 @@ class BookDetailsBody extends StatelessWidget {
                   text: 'Favorite',
                   icon: const Icon(Icons.favorite),
                   onPressed: () {
-                    // منطق إضافة الكتاب للمفضلة
-                  },
+  final favoritesBox = Hive.box<BookEntity>('favoritesBox');
+
+  final existing = favoritesBox.values.any((item) => item.title == book.title);
+
+  if (!existing) {
+    favoritesBox.add(book);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Added to favorites')),
+    );
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Already in favorites')),
+    );
+  }
+},
+
                 ),
               ],
             ),

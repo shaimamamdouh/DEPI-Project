@@ -12,7 +12,10 @@ class BookDetailsView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(book.title ?? 'Book Details'),
+        title: Text(
+          book.title ?? 'Book Details',
+          style: TextStyle(fontSize: 18),
+        ),
         backgroundColor: Colors.white,
         centerTitle: true,
       ),
