@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "640609794069",
+    "project_id": "readio-app-e7d47",
+    "storage_bucket": "readio-app-e7d47.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640609794069:android:f30ff1b7afadf180e3761c",
+        "android_client_info": {
+          "package_name": "com.example.readio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8HBNztFhJYCqpVBoqvEZeP3Bii4wOw1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
