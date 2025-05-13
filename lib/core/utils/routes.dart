@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:readio/features/Splash/presentaion/views/splash_view.dart';
 import 'package:readio/features/authentication/presentation/views/login_view.dart';
 import 'package:readio/features/books/presentation/views/favourite_books_view.dart';
-import 'package:readio/features/home/presentation/views/search_view.dart';
-import 'package:readio/features/home/presentation/views/user_profile_view.dart';
+import 'package:readio/features/chatBot/views/book_chat_bot_view.dart';
+import 'package:readio/features/profile/presentation/views/profile_view.dart';
 import 'package:readio/features/authentication/presentation/views/signup_view.dart';
 import 'package:readio/features/authentication/presentation/views/start_view.dart';
 import 'package:readio/features/books/presentation/views/book_by_catigory_view.dart';
@@ -13,7 +13,8 @@ import 'package:readio/features/books/presentation/views/listening_book_view.dar
 import 'package:readio/features/books/presentation/views/reading_book_view.dart';
 import 'package:readio/features/home/presentation/views/home_view.dart';
 import 'package:readio/features/home/presentation/views/navigation_bottms_bar.dart';
-
+import 'package:readio/features/profile/presentation/views/setting_view.dart';
+import 'package:readio/features/search/presentation/views/search_view.dart';
 import '../../features/home/data/models/book_model/reading_view.dart';
 import '../../features/home/domain/entities/book_entity.dart';
 
@@ -35,13 +36,13 @@ abstract class Routes {
         builder: (context, state) =>  LoginView(),
       ),
       GoRoute(
-        path: '/UserProfileView',
-        builder: (context, state) => const UserProfileView(),
+        path: '/ProfileView',
+        builder: (context, state) =>  ProfileView(),
       ),
-      // GoRoute(
-      //   path: '/SendCodeView',
-      //   builder: (context, state) => const SendCodeView(),
-      // ),
+      GoRoute(
+        path: '/SettingView',
+        builder: (context, state) => const SettingView(),
+      ),
       GoRoute(path: '/HomeView', builder: (context, state) => HomeView()),
       GoRoute(
         path: '/LoginView',
@@ -86,9 +87,22 @@ abstract class Routes {
         builder: (context, state) => const FavoriteBooksView(),
       ),
 
+ GoRoute(
+        path: '/BookChatBotView',
+        builder: (context, state) => const BookChatBotView(),
+      ),
+
+        GoRoute(
+        path: '/ListeningBookView',
+        builder: (context, state) {
+          final book = state.extra as BookEntity?;
+          return ListeningBookView(book: book);
+        },
+      ),
 
 
       
     ],
   );
 }
+

@@ -9,14 +9,16 @@ class StartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Dynamically get the current theme
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor:
+          theme.scaffoldBackgroundColor, // Use theme's scaffold background
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 100),
         child: Center(
           child: Column(
             children: [
-              //  padding: const EdgeInsets.only(left: 45),
               Container(
                 height: 100,
                 width: 150,
@@ -27,39 +29,69 @@ class StartView extends StatelessWidget {
                   ),
                 ),
               ),
-
               const SizedBox(height: 16),
               Text(
                 "welcome to Readio!",
                 style: GoogleFonts.montaguSlab(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color:
+                      theme
+                          .textTheme
+                          .bodyLarge
+                          ?.color, 
                 ),
               ),
               const SizedBox(height: 4),
-
               Text(
                 "Read. Listen. Discuss.",
                 style: GoogleFonts.montserratAlternates(
                   fontSize: 16,
-                  color: Colors.black,
+                  color:
+                      theme
+                          .textTheme
+                          .bodyMedium
+                          ?.color, // Use theme's text color
                 ),
               ),
               const SizedBox(height: 200),
-
               CustumElevatedBottom(
-                buttonColor: ColorsData.bottomsColor,
-                borderColor: ColorsData.bottomsColor,
-                textColor: Colors.white,
+                buttonColor:
+                    theme.elevatedButtonTheme.style?.backgroundColor?.resolve(
+                      {},
+                    ) ??
+                    ColorsData.bottomsColor, // Use theme's button background
+                borderColor:
+                    theme.elevatedButtonTheme.style?.backgroundColor?.resolve(
+                      {},
+                    ) ??
+                    ColorsData
+                        .bottomsColor, // Use theme's button background for border
+                textColor:
+                    theme.elevatedButtonTheme.style?.foregroundColor?.resolve(
+                      {},
+                    ) ??
+                    Colors.white, // Use theme's button foreground
                 text: "Log in",
                 onTap: () => context.push('/LoginView'),
               ),
               const SizedBox(height: 16),
               CustumElevatedBottom(
-                buttonColor: Colors.white,
-                borderColor: ColorsData.bottomsColor,
-                textColor: ColorsData.bottomsColor,
+                buttonColor:
+                    theme
+                        .scaffoldBackgroundColor, // Use theme's scaffold background
+                borderColor:
+                    theme.elevatedButtonTheme.style?.backgroundColor?.resolve(
+                      {},
+                    ) ??
+                    ColorsData
+                        .bottomsColor, // Use theme's button background for border
+                textColor:
+                    theme.elevatedButtonTheme.style?.backgroundColor?.resolve(
+                      {},
+                    ) ??
+                    ColorsData
+                        .bottomsColor, // Use theme's button background for text
                 text: "sign up",
                 onTap: () => context.push('/SignupView'),
               ),

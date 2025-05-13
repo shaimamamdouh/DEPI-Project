@@ -1,173 +1,16 @@
+// ignore_for_file: missing_required_param
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:readio/core/utils/constants.dart';
+import 'package:readio/core/utils/functions/snack_bar.dart';
 import 'package:readio/features/authentication/presentation/views/wigets/custom_text_field.dart';
 import 'package:readio/features/authentication/presentation/views/wigets/custum_elevated_bottom.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
-/* 
-// ignore: must_be_immutable
-class LoginView extends StatelessWidget {
-  LoginView({super.key});
 
-  final _keyForm = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: BlocListener<LoginCubit, LoginState>(
-        listener: (context, state) {
-          if (state is LoginLoading) {
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (_) => const Center(child: CircularProgressIndicator()),
-            );
-          } else if (state is LoginSuccess) {
-            Navigator.pop(context); // Close loading
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(const SnackBar(content: Text("Login successful")));
-            context.push('/NavigationBottomBar');
-          } else if (state is LoginFailure) {
-            Navigator.pop(context); // Close loading
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.error)));
-          }
-        },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: SingleChildScrollView(
-            child: Form(
-              key: _keyForm,
-              autovalidateMode: autovalidateMode,
-              child: Column(
-                children: [
-                  const SizedBox(height: 30),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back_ios,
-                          color: ColorsData.textColor,
-                        ),
-                        onPressed: () => context.pop(),
-                      ),
-                      const SizedBox(width: 85),
-                      Text(
-                        'Hello!',
-                        style: GoogleFonts.leagueSpartan(
-                          fontSize: 24,
-                          color: ColorsData.textColor,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Container(
-                    height: 100,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(AssetsData.logoLight2),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 100),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'welcome back!',
-                        style: GoogleFonts.leagueSpartan(
-                          fontSize: 32,
-                          color: ColorsData.textColor,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  CustomTextField(
-                    //  controller: _emailController,
-                    hintText: 'Email',
-                  ),
-                  const SizedBox(height: 20),
-                  CustomTextField(
-                    //   controller: _passwordController,
-                    hintText: 'Password',
-                    icon: const Icon(
-                      Icons.visibility_off,
-                      color: ColorsData.bottomsColor,
-                    ),
-                  ),
-                  const SizedBox(height: 3),
-                  Container(
-                    width: double.infinity,
-                    alignment: Alignment.centerLeft,
-                    child: TextButton(
-                      onPressed: () => context.push('/ForgotPasswordView'),
-                      child: Text(
-                        'Forgot password?',
-                        style: GoogleFonts.poppins(
-                          color: ColorsData.textColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 50),
-                  CustumElevatedBottom(
-                    buttonColor: ColorsData.bottomsColor,
-                    borderColor: ColorsData.bottomsColor,
-                    textColor: Colors.white,
-                    text: "Log in",
-                    onTap: () {
-                      if (_keyForm.currentState!.validate()) {
-                        context.read<LoginCubit>().login(
-                          email: _emailController.text.trim(),
-                          password: _passwordController.text,
-                        );
-                      } else {
-                        autovalidateMode = AutovalidateMode.always;
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 2),
-                  Container(
-                    width: double.infinity,
-                    alignment: Alignment.centerLeft,
-                    child: TextButton(
-                      onPressed: () => context.push('/SignupView'),
-                      child: Text(
-                        'Don\'t have an account? sign up',
-                        style: GoogleFonts.poppins(
-                          color: ColorsData.textColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
- */
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -178,105 +21,130 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final keyForm = GlobalKey<FormState>();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  final email = TextEditingController();
+  final password = TextEditingController();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Dynamically get the current theme
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor:
+          theme.scaffoldBackgroundColor, // Use theme's scaffold background
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: SingleChildScrollView(
           child: Form(
             key: keyForm,
-            // autovalidateMode: autovalidateMode,
+            autovalidateMode: autovalidateMode,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 30),
                 Row(
                   children: [
                     IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back_ios,
-                        color: ColorsData.textColor,
-                      ),
+                      icon: const Icon(Icons.arrow_back_ios),
+                      color:
+                          theme
+                              .textTheme
+                              .bodyLarge
+                              ?.color, // Use theme's text color
                       onPressed: () => context.pop(),
                     ),
-                    const SizedBox(width: 85),
+                    const Spacer(),
                     Text(
                       'Hello!',
-                      style: GoogleFonts.leagueSpartan(
-                        fontSize: 24,
-                        color: ColorsData.textColor,
+                      style: TextStyle(
                         fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        color:
+                            theme
+                                .textTheme
+                                .bodyLarge
+                                ?.color, // Use theme's text color
                       ),
                     ),
+                    const Spacer(flex: 2),
                   ],
                 ),
-                const SizedBox(height: 10),
-                Container(
-                  height: 100,
-                  width: 150,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(AssetsData.logoLight2),
-                      fit: BoxFit.fill,
-                    ),
+                const SizedBox(height: 20),
+                Center(
+                  child: Image.asset(
+                    AssetsData.logoLight2,
+                    height: 100,
+                    width: 150,
                   ),
                 ),
-                const SizedBox(height: 100),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'welcome back!',
-                      style: GoogleFonts.leagueSpartan(
-                        fontSize: 32,
-                        color: ColorsData.textColor,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
+                const SizedBox(height: 60),
+                Text(
+                  'Welcome back!',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 18,
+                    color:
+                        theme
+                            .textTheme
+                            .bodyLarge
+                            ?.color, // Use theme's text color
+                  ),
                 ),
-                const SizedBox(height: 10),
-                CustomTextField(myController: email, hintText: 'Email'),
+                const SizedBox(height: 20),
+                CustomTextField(hintText: 'Email', myController: email),
                 const SizedBox(height: 20),
                 CustomTextField(
-                  myController: password,
                   hintText: 'Password',
-                  icon: const Icon(
+                  myController: password,
+                  obscureText: true,
+                  icon: Icon(
                     Icons.visibility_off,
-                    color: ColorsData.bottomsColor,
+                    color:
+                        theme.elevatedButtonTheme.style?.backgroundColor
+                            ?.resolve({}) ??
+                        ColorsData
+                            .bottomsColor, // Use theme's button background
                   ),
                 ),
-                const SizedBox(height: 3),
-                Container(
-                  width: double.infinity,
+                const SizedBox(height: 10),
+                Align(
                   alignment: Alignment.centerLeft,
                   child: TextButton(
-                    //  onPressed: () => context.push('/ForgotPasswordView'),
                     onPressed: () async {
-                      await FirebaseAuth.instance.sendPasswordResetEmail(
-                        email: email.text,
-                      );
+                      if (email.text.isNotEmpty) {
+                        await FirebaseAuth.instance.sendPasswordResetEmail(
+                          email: email.text,
+                        );
+                        showSnackBar('Password reset email sent.');
+                      } else {
+                        showSnackBar('Please enter your email.');
+                      }
                     },
                     child: Text(
                       'Forgot password?',
-                      style: GoogleFonts.poppins(
-                        color: ColorsData.textColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                      ),
+                      style: TextStyle(
+                        color: theme.textTheme.bodyLarge?.color,
+                      ), // Use theme's text color
                     ),
                   ),
                 ),
-                const SizedBox(height: 50),
+                const SizedBox(height: 40),
                 CustumElevatedBottom(
-                  buttonColor: ColorsData.bottomsColor,
-                  borderColor: ColorsData.bottomsColor,
-                  textColor: Colors.white,
+                  buttonColor:
+                      theme.elevatedButtonTheme.style?.backgroundColor?.resolve(
+                        {},
+                      ) ??
+                      ColorsData.bottomsColor, // Use theme's button background
+                  borderColor:
+                      theme.elevatedButtonTheme.style?.backgroundColor?.resolve(
+                        {},
+                      ) ??
+                      ColorsData.bottomsColor, // Use theme's button background
+                  textColor:
+                      theme.elevatedButtonTheme.style?.foregroundColor?.resolve(
+                        {},
+                      ) ??
+                      Colors.white, // Use theme's button foreground
                   text: "Log in",
                   onTap: () async {
                     if (keyForm.currentState!.validate()) {
@@ -285,47 +153,26 @@ class _LoginViewState extends State<LoginView> {
                           email: email.text,
                           password: password.text,
                         );
-
                         if (!mounted) return;
-                        context.push('/HomeView');
+                        context.push('/NavigationBottomBar');
                       } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.info,
-                            animType: AnimType.rightSlide,
-                            title: 'Dialog Title',
-                            desc: 'No user found for that email.',
-                          ).show();
-                        } else if (e.code == 'wrong-password') {
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.info,
-                            animType: AnimType.rightSlide,
-                            title: 'Dialog Title',
-                            desc: 'Wrong password provided for that user.',
-                          ).show();
-                        }
+                        showSnackBar(e.message ?? 'Error');
                       }
                     } else {
-                      autovalidateMode = AutovalidateMode.always;
+                      setState(() {
+                        autovalidateMode = AutovalidateMode.always;
+                      });
                     }
                   },
                 ),
-                const SizedBox(height: 2),
-                Container(
-                  width: double.infinity,
-                  alignment: Alignment.centerLeft,
-                  child: TextButton(
-                    onPressed: () => context.push('/SignupView'),
-                    child: Text(
-                      'Don\'t have an account? sign up',
-                      style: GoogleFonts.poppins(
-                        color: ColorsData.textColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                      ),
-                    ),
+                const SizedBox(height: 8),
+                TextButton(
+                  onPressed: () => context.push('/SignupView'),
+                  child: Text(
+                    'Don\'t have an account? Sign up',
+                    style: TextStyle(
+                      color: theme.textTheme.bodyLarge?.color,
+                    ), // Use theme's text color
                   ),
                 ),
               ],

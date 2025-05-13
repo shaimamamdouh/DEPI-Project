@@ -6,15 +6,13 @@ import '../../../domain/entities/book_entity.dart';
 
 class CustomBookItem extends StatelessWidget {
   final String image;
-  final BookEntity book; 
+  final BookEntity book;
   const CustomBookItem({super.key, required this.image, required this.book});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        context.push('/BookDetailsView', extra: book);
-      },
+      onTap: () => context.push('/BookDetailsView', extra: book),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: ClipRRect(

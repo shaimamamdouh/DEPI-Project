@@ -46,15 +46,23 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: FadeTransition(
-        opacity: fadeAnimation,
-        child: ScaleTransition(
-          scale: scaleAnimation,
-          child: SizedBox(
-            width: 250,
-            height: 250,
-            child: Image.asset(AssetsData.logoLight),
+    final theme = Theme.of(context); // Dynamically get the current theme
+    final isLightTheme = theme.brightness == Brightness.light; // Check theme mode
+
+    return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor, // Use theme's scaffold background
+      body: Center(
+        child: FadeTransition(
+          opacity: fadeAnimation,
+          child: ScaleTransition(
+            scale: scaleAnimation,
+            child: SizedBox(
+              width: 250,
+              height: 250,
+              child: Image.asset(
+                isLightTheme ? AssetsData.logoLight : AssetsData.logoDark, // Conditional logo
+              ),
+            ),
           ),
         ),
       ),

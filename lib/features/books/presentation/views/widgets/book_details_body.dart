@@ -27,13 +27,11 @@ class BookDetailsBody extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.5,
                 height: 250,
                 fit: BoxFit.fill,
-                errorBuilder:
-                    (context, error, stackTrace) =>
-                        Image.asset('assets/images/placeholder.jpg'),
+                errorBuilder: (context, error, stackTrace) =>
+                    Image.asset('assets/images/placeholder.jpg'),
               ),
             ),
             const SizedBox(height: 10),
-
             Center(
               child: Text(
                 book.title ?? 'Unknown Title',
@@ -44,7 +42,6 @@ class BookDetailsBody extends StatelessWidget {
                 ),
               ),
             ),
-
             const SizedBox(height: 3),
             Center(
               child: Text(
@@ -68,43 +65,46 @@ class BookDetailsBody extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                CustomElevatedButton(
-                  text: 'Read',
-                  icon: const Icon(Icons.book),
-                  onPressed: () {
-                    context.push(
-                      '/ReadingView',
-                      extra: book,
-                    ); // الانتقال لـ ReadingView
-                  },
-                ),
-                CustomElevatedButton(
-                  text: 'Listen',
-                  icon: const Icon(Icons.headset),
-                  onPressed: () {
-                    context.push('/ListeningBookView');
-                  },
-                ),
+                if (book.previewLink != null && book.previewLink!.isNotEmpty)
+                  CustomElevatedButton(
+                    text: 'Read',
+                    icon: const Icon(Icons.book),
+                    onPressed: () {
+                      context.push(
+                        '/ReadingView',
+                        extra: book,
+                      );
+                    },
+                  ),
+                if (book.description != null && book.description!.isNotEmpty)
+                  CustomElevatedButton(
+                    text: 'Listen',
+                    icon: const Icon(Icons.headset),
+                    onPressed: () {
+                      context.push(
+                        '/ListeningBookView',
+                        extra: book,
+                      );
+                    },
+                  ),
                 CustomElevatedButton(
                   text: 'Favorite',
                   icon: const Icon(Icons.favorite),
                   onPressed: () {
-  final favoritesBox = Hive.box<BookEntity>('favoritesBox');
+                    final favoritesBox = Hive.box<BookEntity>('favoritesBox');
+                    final existing = favoritesBox.values.any((item) => item.title == book.title);
 
-  final existing = favoritesBox.values.any((item) => item.title == book.title);
-
-  if (!existing) {
-    favoritesBox.add(book);
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Added to favorites')),
-    );
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Already in favorites')),
-    );
-  }
-},
-
+                    if (!existing) {
+                      favoritesBox.add(book);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Added to favorites')),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Already in favorites')),
+                      );
+                    }
+                  },
                 ),
               ],
             ),

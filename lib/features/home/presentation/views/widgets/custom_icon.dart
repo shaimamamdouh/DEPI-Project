@@ -26,9 +26,11 @@ class CustomIconButtom extends StatelessWidget {
           //  border: Border.all(),
         ),
         child: Center(
-          child: Icon(icon, size: 25, color: ColorsData.bottomsColor),
+          child: Icon(icon, size: 25, color:  Theme.of(context).iconTheme.color),
         ),
       ),
     );
   }
 }
+
+

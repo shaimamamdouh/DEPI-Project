@@ -6,6 +6,8 @@ import 'package:readio/features/home/data/data_sources/home_local_data_source.da
 import 'package:readio/features/home/data/data_sources/home_remote_data_source.dart';
 import 'package:readio/features/home/data/repository/home_repo_impl.dart';
 import 'package:readio/features/home/domain/repository/home_repo.dart';
+import 'package:readio/features/search/data/book_api.dart';
+
 final getIt = GetIt.instance;
 
 void setupServiceLocator() {
@@ -17,4 +19,5 @@ void setupServiceLocator() {
     remoteDataSource: getIt.get<HomeRemoteDataSource>(),
     localDataSource: getIt.get<HomeLocalDataSource>(),
   ));
+  getIt.registerSingleton<BookApiService>(BookApiService());
 }

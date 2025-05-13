@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart'; 
 import 'package:readio/core/utils/functions/locator_service.dart';
-import 'package:readio/features/home/domain/repository/home_repo.dart';
 import 'package:readio/features/home/domain/entities/book_entity.dart';
+import 'package:readio/features/home/domain/repository/home_repo.dart';
 import 'package:readio/features/home/presentation/manager/top_books_cubit/fetch_top_books_cubit.dart';
 
 class BookByCatigoryView extends StatelessWidget {
@@ -63,64 +64,112 @@ class BookByCatigoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Dynamically get the current theme
+    final isLightTheme = theme.brightness == Brightness.light;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       child: GestureDetector(
         onTap: () {
           context.push('/BookDetailsView', extra: book);
         },
         child: Container(
-          height: 100,
+          height: 140, // Increased height for more spacious look
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(7),
+            color:
+                theme
+                    .scaffoldBackgroundColor, // Use theme's scaffold background
+            borderRadius: BorderRadius.circular(12), // Smoother corners
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                spreadRadius: 2,
-                blurRadius: 5,
-                offset: const Offset(0, 3),
+                color: Colors.black.withOpacity(
+                  isLightTheme ? 0.05 : 0.2,
+                ), // Softer shadow, theme-aware
+                spreadRadius: 1,
+                blurRadius: 6,
+                offset: const Offset(0, 2),
               ),
             ],
           ),
           child: Row(
             children: [
-              Image.network(
-                book.image ?? 'https://via.placeholder.com/80x100',
-                width: 80,
-                height: 100,
-                fit: BoxFit.cover,
-                errorBuilder:
-                    (context, error, stackTrace) =>
-                        Image.asset('assets/images/placeholder.jpg'),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8), // Rounded image corners
+                child: Image.network(
+                  book.image ?? 'https://via.placeholder.com/80x100',
+                  width: 70, // Reduced width
+                  height: 90, // Reduced height
+                  fit: BoxFit.cover,
+                  errorBuilder:
+                      (context, error, stackTrace) => Image.asset(
+                        'assets/images/placeholder.jpg',
+                        width: 70,
+                        height: 90,
+                        fit: BoxFit.cover,
+                      ),
+                ),
               ),
-              const SizedBox(width: 10), // مسافة بسيطة بين الصورة والمحتوى
+              const SizedBox(width: 12), // Adjusted spacing
               Expanded(
-                // Expanded هنا داخل الـ Row
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center, // لتوسيط العمودي
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       book.title ?? 'Unknown Title',
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: GoogleFonts.montaguSlab(
+                        // Elegant font for title
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color:
+                            theme
+                                .textTheme
+                                .bodyLarge
+                                ?.color, // Theme's text color
+                      ),
                     ),
+                    const SizedBox(height: 4),
                     Text(
                       book.author ?? 'Unknown Author',
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: const TextStyle(color: Colors.grey),
+                      style: GoogleFonts.montserratAlternates(
+                        // Elegant font for author
+                        fontSize: 14,
+                        color:
+                            theme
+                                .textTheme
+                                .bodyMedium
+                                ?.color, // Theme's secondary text color
+                      ),
                     ),
+                    const SizedBox(height: 6),
                     Row(
                       children: [
                         Text(
                           book.rating?.toString() ?? 'N/A',
-                          style: const TextStyle(fontSize: 14),
+                          style: GoogleFonts.montserratAlternates(
+                            fontSize: 14,
+                            color:
+                                theme
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.color, // Theme's text color
+                          ),
                         ),
-                        const Icon(Icons.star, color: Colors.yellow, size: 16),
+                        const SizedBox(width: 4),
+                        Icon(
+                          Icons.star,
+                          color:
+                              isLightTheme
+                                  ? Colors.amber
+                                  : Colors
+                                      .amberAccent, // Theme-aware star color
+                          size: 16,
+                        ),
                       ],
                     ),
                   ],

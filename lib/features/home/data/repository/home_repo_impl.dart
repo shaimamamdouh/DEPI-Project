@@ -16,7 +16,6 @@ class HomeRepoImpl extends HomeRepo {
   Future<Either<Failure, List<BookEntity>>> fetchTopBooks({String? category}) async {
     List<BookEntity> bookList;
     try {
-      // لو مفيش category، جيب الكتب من Hive
       if (category == null) {
         bookList = await localDataSource.fetchTopBooks();
         if (bookList.isNotEmpty) {
@@ -27,8 +26,6 @@ class HomeRepoImpl extends HomeRepo {
           return right(bookList);
         }
       }
-
-      // لو فيه category أو Hive فاضي، اطلب من الـ API
       bookList = await remoteDataSource.fetchTopBooks(category: category);
       print('🌐 Loaded from remote: ${bookList.length} books');
       for (var book in bookList) {
@@ -66,5 +63,32 @@ class HomeRepoImpl extends HomeRepo {
   @override
   Future<Either<Failure, List<BookEntity>>> fetchYourBooks() {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, List<BookEntity>>> searchBooks(String query) async {
+    try {
+      final formattedQuery = query.replaceAll(' ', '+');
+      final cachedBooks = await localDataSource.fetchBooksByKey('search_$formattedQuery');
+      if (cachedBooks.isNotEmpty) {
+        print('📦 Loaded from local (search): ${cachedBooks.length} books');
+        for (var book in cachedBooks) {
+          print('📥 Local search book image: ${book.image}');
+        }
+        return right(cachedBooks);
+      }
+      final bookList = await remoteDataSource.searchBooks(query);
+      print('🌐 Loaded from search: ${bookList.length} books');
+      for (var book in bookList) {
+        print('🌄 Search book image: ${book.image}');
+      }
+      return right(bookList);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      } else {
+        return left(ServerFailure(e.toString()));
+      }
+    }
   }
 }

@@ -15,7 +15,7 @@ class FetchTopBooksCubit extends Cubit<FetchTopBooksState> {
     final result = await homeRepo.fetchTopBooks(category: category);
     result.fold(
           (failure) => emit(FetchTopBooksFailure(failure.message)),
-          (books) => emit(FetchTopBooksSuccess(books: books)), // تعديل السطر
+          (books) => emit(FetchTopBooksSuccess(books: books)),
     );
   }
 }

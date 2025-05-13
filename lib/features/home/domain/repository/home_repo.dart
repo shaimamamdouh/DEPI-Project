@@ -6,4 +6,5 @@ abstract class HomeRepo {
   Future<Either<Failure, List<BookEntity>>> fetchTopBooks({String? category});
   Future<Either<Failure, List<BookEntity>>> fetchAudioBooks();
   Future<Either<Failure, List<BookEntity>>> fetchYourBooks();
+  Future<Either<Failure, List<BookEntity>>> searchBooks(String query);
 }

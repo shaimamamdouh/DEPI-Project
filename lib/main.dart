@@ -11,6 +11,10 @@ import 'package:readio/features/authentication/manager/cubits/login_cubit/login_
 import 'package:readio/features/authentication/manager/cubits/reset_password_cubit/reset_password_cubit.dart';
 import 'package:readio/features/authentication/manager/cubits/signup_cubit/signup_cubit.dart';
 import 'package:readio/features/home/domain/entities/book_entity.dart';
+import 'package:readio/features/home/domain/repository/home_repo.dart';
+import 'package:readio/features/search/presentation/manger/cubit/search_cubit.dart';
+import 'package:readio/features/theme/app_theme.dart';
+import 'package:readio/features/theme/manager/cubit/theme_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //initialize the widgets binding
@@ -27,10 +31,9 @@ void main() async {
   await Hive.openBox<BookEntity>('users');
   await Hive.openBox<BookEntity>('Topbooks');
   await Hive.openBox<BookEntity>('audiobooks');
-   await Hive.openBox<BookEntity>('favoritesBox');
-  
+  await Hive.openBox<BookEntity>('favoritesBox');
 
-   setupServiceLocator();
+  setupServiceLocator();
 
   Bloc.observer = SimpleBlocObserver();
 
@@ -47,25 +50,31 @@ class Readio extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        // BlocProvider(create: (context) => LoginCubit(),),
-        BlocProvider(create: (context) => LoginCubit()),
-        BlocProvider(create: (context) => SignupCubit()),
-        BlocProvider(create: (context) => ResetPasswordCubit()),
+        BlocProvider(create: (_) => LoginCubit()),
+        BlocProvider(create: (_) => SignupCubit()),
+        BlocProvider(create: (_) => ResetPasswordCubit()),
+        BlocProvider(create: (context) => SearchCubit(getIt.get<HomeRepo>())),
+        BlocProvider(create: (_) => ThemeCubit()..loadTheme()),
       ],
-      child: MaterialApp.router(
-        localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: [
-          Locale('en'), // English
-          Locale('ar'), // Arabic
-        ],
-        locale: Locale('en'), // Default locale
-        scaffoldMessengerKey: rootScaffoldMessengerKey,
-        debugShowCheckedModeBanner: false,
-        routerConfig: Routes.router,
+      child: BlocBuilder<ThemeCubit, ThemeState>(
+        builder: (context, state) {
+          final themeCubit = context.read<ThemeCubit>();
+          return MaterialApp.router(
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeCubit.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [Locale('en'), Locale('ar')],
+            locale: const Locale('en'),
+            scaffoldMessengerKey: rootScaffoldMessengerKey,
+            debugShowCheckedModeBanner: false,
+            routerConfig: Routes.router,
+          );
+        },
       ),
     );
   }

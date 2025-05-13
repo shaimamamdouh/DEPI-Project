@@ -8,35 +8,62 @@ class CustomTextField extends StatelessWidget {
     this.icon,
     this.onSaved,
     required this.myController,
+    this.obscureText = false,
+    this.validator,
   });
+
   final String hintText;
   final Widget? icon;
   final void Function(String?)? onSaved;
   final TextEditingController myController;
+  final bool obscureText;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return TextFormField(
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'This field is required';
-        }
-        return null;
-      },
+      obscureText: obscureText,
+      validator: validator ??
+          (value) {
+            if (value == null || value.isEmpty) {
+              return 'This field is required';
+            }
+            return null;
+          },
       controller: myController,
       onSaved: onSaved,
+      style: TextStyle(
+        color: isDark
+            ? ColorsData.darkTextColor
+            : ColorsData.textColor,
+      ),
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 30),
         hintText: hintText,
-        hintStyle: const TextStyle(color: ColorsData.secondaryColor),
+        hintStyle: TextStyle(
+          color: isDark
+              ? ColorsData.darkTextColor.withOpacity(0.6)
+              : ColorsData.textColor.withOpacity(0.6),
+        ),
         suffixIcon: icon,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(18),
-          borderSide: const BorderSide(color: ColorsData.bottomsColor),
+          borderSide: BorderSide(
+            color: isDark
+                ? ColorsData.darkBottomsColor
+                : ColorsData.bottomsColor,
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(18),
-          borderSide: const BorderSide(color: ColorsData.textColor, width: 2),
+          borderSide: BorderSide(
+            color: isDark
+                ? ColorsData.darkTextColor
+                : ColorsData.textColor,
+            width: 2,
+          ),
         ),
       ),
     );
