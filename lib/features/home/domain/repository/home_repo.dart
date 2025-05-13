@@ -1,0 +1,10 @@
+import 'package:dartz/dartz.dart';
+import 'package:readio/core/errors/failure.dart';
+import 'package:readio/features/home/domain/entities/book_entity.dart';
+
+abstract class HomeRepo {
+  Future<Either<Failure, List<BookEntity>>> fetchTopBooks({String? category});
+  Future<Either<Failure, List<BookEntity>>> fetchAudioBooks();
+  Future<Either<Failure, List<BookEntity>>> fetchYourBooks();
+  Future<Either<Failure, List<BookEntity>>> searchBooks(String query);
+}
